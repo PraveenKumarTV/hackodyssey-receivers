@@ -1,79 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reciever Details</title>
+    <title>Donor Details</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <style>
+        .active1 {
+            background-color: rgb(21, 106, 171);
+            color: white;
+            animation: clickEffect 0.3s ease-in-out;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .submit-btn {
+            background-color: blue;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: darkblue;
+        }
+
+        .map-location-btn {
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 18px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-location-btn i {
+            font-size: 18px;
+        }
+
+        .map-location-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .map-location-btn:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes clickEffect {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .active1 p {
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
+
     <div class="container">
-        <h1>Reciever Details</h1>
-        
+        <h1>Donor Details</h1>
+
         <div class="donor-types">
-            <div class="donor-type active" id="restaurant">
+            <div class="donor-type" id="restaurant">
                 <i class="fas fa-store-alt"></i>
-                <p>Organisation</p>
+                <p>Restaurant</p>
             </div>
             <div class="donor-type" id="bakery">
                 <i class="fas fa-bread-slice"></i>
-                <p>NGOs</p>
+                <p>Bakery</p>
             </div>
             <div class="donor-type" id="individual">
                 <i class="fas fa-user"></i>
                 <p>Individual</p>
             </div>
+            <div class="donor-type" id="event">
+                <i class="fas fa-calendar"></i>
+                <p>Event</p>
+            </div>
         </div>
-        
+
         <form id="donorForm">
             <div class="form-group">
                 <input type="text" id="businessName" placeholder="Business Name" required>
+                <div class="error" id="businessNameError"></div>
             </div>
-            
+
             <div class="form-group">
                 <input type="text" id="contactName" placeholder="Contact Name (Optional)">
+                <div class="error" id="contactNameError"></div>
             </div>
-            
+
             <div class="form-group phone-group">
                 <div class="country-code">
                     <span>+91</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <input type="tel" id="mobileNumber" placeholder="Mobile Number" required>
+                <div class="error" id="mobileNumberError"></div>
             </div>
-            
+
             <div class="form-group">
                 <input type="email" id="emailId" placeholder="Email Id" required>
+                <div class="error" id="emailIdError"></div>
             </div>
-            
+
             <div class="form-group">
                 <input type="text" id="address" placeholder="Address" required>
+                <div class="error" id="addressError"></div>
             </div>
-            
+
             <div class="form-group">
                 <input type="text" id="pinCode" placeholder="Pin Code" required>
+                <div class="error" id="pinCodeError"></div>
             </div>
-                       
+
             <input type="hidden" id="location" name="location">
-            
+
             <div class="divider">
-                
                 <span>Or</span>
             </div>
+
             <div>
-            <button type="button" class="map-location-btn" id="useLocationBtn">
-                <i class="fas fa-map-marker-alt"></i> Use Current Location
-            </button>
-            <input type="hidden" id="latitude">
-            <input type="hidden" id="longitude">
-        </div>
+                <button type="button" class="map-location-btn" id="useLocationBtn">
+                    <i class="fas fa-map-marker-alt"></i> Use Current Location
+                </button>
+                <input type="hidden" id="latitude">
+                <input type="hidden" id="longitude">
+            </div>
             <div class="map-location">
                 <a href="#" id="pinLocationBtn">Pin Location by map</a>
             </div>
-            
+
             <button type="submit" class="submit-btn">Submit</button>
         </form>
     </div>
@@ -93,6 +191,162 @@
 
     <!-- Leaflet JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-    <script src="script.js"></script>
+    <script>
+        let typeOfDonor = "";
+        const restaurant = document.querySelector("#restaurant");
+        const bakery = document.querySelector("#bakery");
+        const individual = document.querySelector("#individual");
+        const event = document.querySelector("#event");
+
+        restaurant.addEventListener("click", () => {
+            document.querySelectorAll(".donor-type").forEach(el => el.classList.remove("active1"));
+            typeOfDonor = "restaurant";
+            restaurant.classList.add("active1");
+        });
+
+        bakery.addEventListener("click", () => {
+            document.querySelectorAll(".donor-type").forEach(el => el.classList.remove("active1"));
+            typeOfDonor = "bakery";
+            bakery.classList.add("active1");
+        });
+
+        individual.addEventListener("click", () => {
+            document.querySelectorAll(".donor-type").forEach(el => el.classList.remove("active1"));
+            typeOfDonor = "individual";
+            individual.classList.add("active1");
+        });
+
+        event.addEventListener("click", () => {
+            document.querySelectorAll(".donor-type").forEach(el => el.classList.remove("active1"));
+            typeOfDonor = "event";
+            event.classList.add("active1");
+        });
+
+        const formElement = document.getElementById("donorForm");
+        formElement.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const businessName = document.getElementById("businessName").value.trim();
+            const contactName = document.getElementById("contactName").value.trim();
+            const mobileNumber = document.getElementById("mobileNumber").value.trim();
+            const emailId = document.getElementById("emailId").value.trim();
+            const address = document.getElementById("address").value.trim();
+            const pinCode = document.getElementById("pinCode").value.trim();
+
+            let isValid = true;
+
+            // Clear previous error messages
+            document.querySelectorAll(".error").forEach(el => el.textContent = "");
+
+            // Business Name Validation
+            if (businessName === "") {
+                document.getElementById("businessNameError").textContent = "Business Name is required.";
+                isValid = false;
+            }
+
+            // Mobile Number Validation (10 digits)
+            const phoneRegex = /^[6-9]\d{9}$/;
+            if (!phoneRegex.test(mobileNumber)) {
+                document.getElementById("mobileNumberError").textContent = "Enter a valid 10-digit mobile number.";
+                isValid = false;
+            }
+
+            // Email Validation
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailRegex.test(emailId)) {
+                document.getElementById("emailIdError").textContent = "Enter a valid email address.";
+                isValid = false;
+            }
+
+            // Address Validation
+            if (address === "") {
+                document.getElementById("addressError").textContent = "Address is required.";
+                isValid = false;
+            }
+
+            // Pin Code Validation (6 digits)
+            const pinCodeRegex = /^\d{6}$/;
+            if (!pinCodeRegex.test(pinCode)) {
+                document.getElementById("pinCodeError").textContent = "Enter a valid 6-digit pin code.";
+                isValid = false;
+            }
+
+            if (isValid) {
+                let obj = {
+                    typeOfDonor,
+                    businessName,
+                    contactName,
+                    mobileNumber,
+                    emailId,
+                    address,
+                    pinCode,
+                };
+
+                console.log(obj);
+
+                fetch("https://hackodyssey-receivers.onrender.com/registerReceiver", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(obj),
+                })
+                    .then(response => response.json())
+                    .then(data => console.log("Post Created:", data))
+                    .then(data => window.location.href = "./home.html")
+                    .catch(error => console.error("Error:", error));
+                formElement.reset();
+            }
+        });
+
+        const useLocationBtn = document.getElementById('useLocationBtn');
+        const latitudeInput = document.getElementById('latitude');
+        const longitudeInput = document.getElementById('longitude');
+        const locationInput = document.getElementById('location');
+
+        useLocationBtn.addEventListener('click', function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+
+                        latitudeInput.value = lat;
+                        longitudeInput.value = lng;
+                        locationInput.value = `${lat}, ${lng}`;
+
+                        fetchAddress(lat, lng);
+                    },
+                    function (error) {
+                        alert('Error getting location: ' + error.message);
+                    }
+                );
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
+        });
+
+        function fetchAddress(lat, lng) {
+            const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.display_name) {
+                        document.getElementById('address').value = data.display_name;
+                        document.getElementById('pinCode').value = data.address.postcode || '';
+                    } else {
+                        alert('Failed to fetch address');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching address:', error);
+                    alert('Error fetching address');
+                });
+        }
+    </script>
+
 </body>
+
 </html>
