@@ -8,7 +8,7 @@ const dbName = "receivers";
 //app initialization
 const app = express();
 const corsOptions = {
-    origin: 'https://frontend-feeding-friends.onrender.com', // Your frontend's origin
+    origin: 'https://praveenkumartv.github.io/hackodyssey-receivers/public/', // Your frontend's origin
     optionsSuccessStatus: 200 // Some legacy browsers require this
   };
  
@@ -34,9 +34,9 @@ async function connectToDB() {
     }
 }
 
-app.post('/registerDonor', async (req, res) => {
+app.post('/registerReceiver', async (req, res) => {
     try {
-        const collection = db.collection('donor-details');
+        const collection = db.collection('details');
         const obj = {
                 typeOfDonor,
                 businessName,
