@@ -3,16 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Food request Post</title>
+    <title>Create Donation Post</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="dashboard.css">
+    <style>
+        .active1{
+            background-color: rgb(41, 134, 215);
+            color:white;
+        }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="main-container">
         <div class="page-header">
-            <button class="back-btn" id="backButton" href="profile.html"><i class="fas fa-arrow-left" href="profile.html"></i></button>
-            <h1>Create Food Request Post</h1>
+            <button class="back-btn" id="backButton"><i class="fas fa-arrow-left"></i></button>
+            <h1>Create Donation Post</h1>
         </div>
 
         <form id="donationForm">
@@ -29,7 +35,7 @@
             <div class="form-group">
                 <label>Food Type</label>
                 <div class="food-type-toggle">
-                    <button type="button" class="food-type-btn active" id="vegButton" data-type="veg">
+                    <button type="button" class="food-type-btn active1" id="vegButton" data-type="veg">
                         <i class="fas fa-leaf"></i> Veg
                     </button>
                     <button type="button" class="food-type-btn" id="nonVegButton" data-type="nonveg">
@@ -69,61 +75,62 @@
                 <input type="hidden" id="longitude">
             </div>
             
-            <button type="submit" class="submit-btn">Post Request</button>
+            <button type="submit" class="submit-btn">Post Donation</button>
         </form>
     </div>
 
-    <script>
-        const form=document.getElementById('donationForm');
-        let foodType="";
-        const vegbtn=document.getElementById('vegButton');
-        const nonvegbtn=document.getElementById('nonVegButton');
-        vegbtn.addEventListener("click",(e)=>{
-            foodType="veg";
-            vegbtn.classList.add('active');
-            nonvegbtn.classList.remove('active');
-        });
-        nonvegbtn.addEventListener("click",(e)=>{
-            foodType="nonveg";
-            nonvegbtn.classList.add('active');
-            vegbtn.classList.remove('active');
-        });
-        form.addEventListener("submit",(e)=>{
-            e.preventDefault();
-            const foodDescription=document.getElementById('foodDescription').value;
-            const foodQuantity=document.getElementById('foodQuantity').value;
-            const expiryTime=document.getElementById('expiryTime').value;
-            const pickupAddress=document.getElementById('pickupAddress').value;
-            //const latitude=document.getElementById('latitude').value;
-            //const longitude=document.getElementById('longitude').value;
-            //const photoInput=document.getElementById('photoInput').files;
-            if(!foodDescription || !foodQuantity || !expiryTime || !pickupAddress|| !foodType){
-                alert("All fields are required");
-                return;
-            }
-            const formData={
-                foodDescription,
-                foodQuantity,
-                expiryTime,
-                pickupAddress,
-                foodType
-            };
+    <script >
+        
+       
+    const form = document.getElementById("donationForm");
+   
+    let foodType = ""; // Use 'let' instead of 'const'
+
+    const vegButton = document.getElementById("vegButton");
+    const nonVegButton = document.getElementById("nonVegButton");
+
+    vegButton.addEventListener("click", (e) => {
+        document.querySelectorAll(".food-type-btn").forEach(btn => btn.classList.remove("active1"));
+        foodType = "veg";  // Now it can be reassigned
+        vegButton.classList.add("active1");
+    });
+
+    nonVegButton.addEventListener("click", (e) => {
+        document.querySelectorAll(".food-type-btn").forEach(btn => btn.classList.remove("active1"));
+        foodType = "nonVeg"; // Now it can be reassigned
+        nonVegButton.classList.add("active1");
+    });
+    
+    form.addEventListener("submit", (event)=> {
+        event.preventDefault();
+        const foodDescription = document.getElementById("foodDescription").value;
+        const foodQuantity = document.getElementById("foodQuantity").value;
+        const expiryTime = document.getElementById("expiryTime").value;
+        const address = document.getElementById("pickupAddress").value;
+        //const currentLocation = document.querySelector('#useLocationBtn').value;
+        const obj = {
+            foodDescription,
+            foodQuantity,
+            expiryTime,
+            address,
             
-            
-            fetch('https://hackodyssey-receivers.onrender.com/receiverPosts',{
-                method:'POST',
-                body:formData
-            }).then(response=>response.json())
-            .then(data=>{
-                if(data.success){
-                    alert("Receiver request posted successfully");
-                    window.location.href="profile.html";
-                }
-                else{
-                    alert("Failed to post donation request");
-                }
-            });
-        });
+            foodType
+        };
+        fetch("https://hackodyssey-receivers.onrender.com/receiverPosts",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:
+                JSON.stringify(obj),
+        })
+        .then(response=>response.json())
+        .then(data=>console.log("POST created"))
+        .then(data=>window.location.href = "profile.html")
+        .catch(error => console.error("Error:", error))
+        form.reset();
+    })
+
 
     </script>
 </body>
