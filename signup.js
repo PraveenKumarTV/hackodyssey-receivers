@@ -56,6 +56,26 @@ app.post('/registerReceiver', async (req, res) => {
     }
 });
 
+app.post('/receiverPosts',async(req,res)=>{
+    try{
+        const collection=db.collection('receiverPosts');
+        const obj={
+            foodDescription,
+            foodQuantity,
+            foodType,
+            expiryTime,
+            pickupAddress
+        }=req.body;
+        await collection.insertOne(obj);
+        console.log(obj);
+        res.status(201).json({message:"Post added successfully"});
+    }catch(error){
+        console.error('Error saving data:', error);
+        res.status(500).json({ error: 'Failed to save receiver details' });
+    }
+
+});
+
 app.get("/",(req,res)=>{
     res.status(200).send("hi");
 })
