@@ -8,7 +8,7 @@ const dbName = "receivers";
 //app initialization
 const app = express();
 const corsOptions = {
-    origin: 'https://praveenkumartv.github.io/hackodyssey-receivers/public/', // Your frontend's origin
+    origin: 'https://praveenkumartv.github.io', // Your frontend's origin
     optionsSuccessStatus: 200 // Some legacy browsers require this
   };
  
