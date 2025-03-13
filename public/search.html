@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="seach.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="search-header">
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search NGOs, food donations...">
+                <button class="filter-btn">
+                    <i class="fas fa-sliders-h"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="search-tabs">
+            <div class="tab active" data-tab="ngos">NGOs</div>
+            <div class="tab" data-tab="donations">Other Donators</div>
+            <div class="tab" data-tab="communities">Communities</div>
+        </div>
+
+        <div class="tab-content" id="ngos-content">
+            <div class="search-results">
+                <div class="result-item ngo-result">
+                    <div class="result-image">
+                        <img src="placeholder.jpg" alt="NGO Image">
+                    </div>
+                    <div class="result-details">
+                        <h3>Food For All NGO</h3>
+                        <p class="result-address">
+                            <i class="fas fa-map-marker-alt"></i>
+                            123 Main Street, City
+                        </p>
+                        <div class="result-distance">2.5 km away</div>
+                        <div class="result-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span class="rating-count">(42)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-item ngo-result">
+                    <div class="result-image">
+                        <img src="placeholder.jpg" alt="NGO Image">
+                    </div>
+                    <div class="result-details">
+                        <h3>Happy Meals Foundation</h3>
+                        <p class="result-address">
+                            <i class="fas fa-map-marker-alt"></i>
+                            456 Park Avenue, City
+                        </p>
+                        <div class="result-distance">3.7 km away</div>
+                        <div class="result-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span class="rating-count">(78)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-item ngo-result">
+                    <div class="result-image">
+                        <img src="placeholder.jpg" alt="NGO Image">
+                    </div>
+                    <div class="result-details">
+                        <h3>Community Kitchen</h3>
+                        <p class="result-address">
+                            <i class="fas fa-map-marker-alt"></i>
+                            789 Grove Street, City
+                        </p>
+                        <div class="result-distance">5.1 km away</div>
+                        <div class="result-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <i class="far fa-star"></i>
+                            <span class="rating-count">(31)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content hidden" id="donations-content">
+            <div class="search-results">
+                <div class="result-item donation-result">
+                    <div class="result-image">
+                        <img src="food-placeholder.jpg" alt="Donation Image">
+                    </div>
+                    <div class="result-details">
+                        <div class="result-id-date">
+                            <span class="result-id">ID: 324821</span>
+                            <span class="result-date">2 Hours ago</span>
+                        </div>
+                        <h3>Fresh Vegetables and Fruits</h3>
+                        <div class="result-tags">
+                            <span class="tag">15 Servings</span>
+                            <span class="tag">Veg</span>
+                        </div>
+                        <p class="result-address">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Downtown Area, 1.2 km
+                        </p>
+                    </div>
+                </div>
+
+                <div class="result-item donation-result">
+                    <div class="result-image">
+                        <img src="food-placeholder.jpg" alt="Donation Image">
+                    </div>
+                    <div class="result-details">
+                        <div class="result-id-date">
+                            <span class="result-id">ID: 324815</span>
+                            <span class="result-date">5 Hours ago</span>
+                        </div>
+                        <h3>Packed Lunch Boxes</h3>
+                        <div class="result-tags">
+                            <span class="tag">20 Servings</span>
+                            <span class="tag">Non-Veg</span>
+                        </div>
+                        <p class="result-address">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Northern District, 3.5 km
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content hidden" id="communities-content">
+            <div class="search-results">
+                <div class="result-item community-result">
+                    <div class="result-image">
+                        <img src="community-placeholder.jpg" alt="Community Image">
+                    </div>
+                    <div class="result-details">
+                        <h3>Food Rescue Team</h3>
+                        <p class="result-description">We visit restaurants and collect excess food to distribute to those in need.</p>
+                        <div class="member-count">
+                            <i class="fas fa-users"></i>
+                            152 Members
+                        </div>
+                        <a href="#" class="join-btn">Join</a>
+                    </div>
+                </div>
+
+                <div class="result-item community-result">
+                    <div class="result-image">
+                        <img src="community-placeholder.jpg" alt="Community Image">
+                    </div>
+                    <div class="result-details">
+                        <h3>Volunteer Drivers</h3>
+                        <p class="result-description">Help transport food donations from donors to NGOs and community centers.</p>
+                        <div class="member-count">
+                            <i class="fas fa-users"></i>
+                            89 Members
+                        </div>
+                        <a href="#" class="join-btn">Join</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Modal -->
+        <div class="filter-modal" id="filterModal">
+            <div class="filter-modal-content">
+                <div class="filter-header">
+                    <h2>Filter</h2>
+                    <button class="close-modal"><i class="fas fa-times"></i></button>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Distance</h3>
+                    <div class="range-slider">
+                        <input type="range" min="1" max="20" value="5" class="slider" id="distanceSlider">
+                        <div class="range-value">5 km</div>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Rating</h3>
+                    <div class="rating-filters">
+                        <label class="filter-checkbox">
+                            <input type="checkbox" checked>
+                            <span class="checkbox-custom"></span>
+                            <span class="filter-label">4+ Stars</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox">
+                            <span class="checkbox-custom"></span>
+                            <span class="filter-label">3+ Stars</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox">
+                            <span class="checkbox-custom"></span>
+                            <span class="filter-label">All Ratings</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Food Preferences</h3>
+                    <div class="food-filters">
+                        <label class="filter-checkbox">
+                            <input type="checkbox" checked>
+                            <span class="checkbox-custom"></span>
+                            <span class="filter-label">Vegetarian</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" checked>
+                            <span class="checkbox-custom"></span>
+                            <span class="filter-label">Non-Vegetarian</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox">
+                            <span class="checkbox-custom"></span>
+                            <span class="filter-label">Vegan</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="filter-buttons">
+                    <button class="reset-btn">Reset</button>
+                    <button class="apply-btn">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="home.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="message.html" class="nav-item">
+                <i class="far fa-comment-alt"></i>
+                <span>Message</span>
+            </a>
+            <a href="search.html" class="nav-item active">
+                <i class="fas fa-search"></i>
+                <span>Search</span>
+            </a>
+            <a href="profile.html" class="nav-item">
+                <i class="far fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="search.js"></script>
+</body>
+</html>

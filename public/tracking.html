@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Tracking</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="page-header">
+            <button class="back-btn" id="backButton"><i class="fas fa-arrow-left"></i></button>
+            <h1>Live tracking</h1>
+        </div>
+
+        <div class="tracking-container">
+            <div class="tracking-status">
+                <p>Agent Assigned for Pickup</p>
+            </div>
+            
+            <div class="map-container">
+                <div id="map" class="map">
+                    <!-- Map will be loaded here with JavaScript -->
+                    <img src="map-placeholder.jpg" alt="Map" class="placeholder-map">
+                </div>
+            </div>
+            
+            <div class="agent-details">
+                <div class="agent-profile">
+                    <div class="agent-avatar">
+                        <img src="agent-placeholder.jpg" alt="Agent">
+                    </div>
+                    <div class="agent-info">
+                        <p class="agent-name">Aswin Kumar</p>
+                        <p class="agent-role">I am pickup volunteer</p>
+                    </div>
+                    <button class="expand-btn"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                
+                <div class="order-details">
+                    <p>ID Details - 324800</p>
+                    <p>Contact - 9011234560</p>
+                </div>
+                
+                <div class="tracking-timeline">
+                    <div class="timeline-item completed">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <p class="timeline-title">Assigned</p>
+                            <p class="timeline-time">10:00PM</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item completed">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <p class="timeline-title">Pick Up</p>
+                            <p class="timeline-time">10:20PM</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <p class="timeline-title">Complete order</p>
+                            <p class="timeline-time">10:30PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

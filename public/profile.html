@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reciever Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="profile-header">
+            <div class="profile-info">
+                <div class="profile-greeting">
+                    <p>Hi RECIEVER</p>
+                </div>
+                <div class="profile-role">
+                    <h2>You are a <span class="role-text">RECIEVER</span> <i class="fas fa-chevron-down"></i></h2>
+                </div>
+            </div>
+            <div class="notification">
+                <i class="fas fa-bell notification-icon"></i>
+            </div>
+        </div>
+
+        <div class="donor-stats">
+            <p class="donor-level">Super Reciever</p>
+            <div class="donor-metrics">
+                <div class="metric">
+                    <p class="metric-label">No of Foods(Recieved)</p>
+                    <p class="metric-value">500</p>
+                </div>
+                <div class="metric">
+                    <p class="metric-label">Feedback received</p>
+                    <p class="metric-value">500</p>
+                </div>
+                <div class="metric">
+                    <p class="metric-label">Points earned</p>
+                    <p class="metric-value">1000</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="donor-tabs">
+            <div class="tab active" data-tab="mypost">My Post <span class="tab-count">1</span></div>
+            <div class="tab" data-tab="requests">Donor Requests <span class="tab-count" id="requestCount">0</span></div>
+        </div>
+
+        <div class="tab-content" id="mypost-content">
+            <div id="donation-status">
+                <!-- This will be dynamically filled based on status -->
+            </div>
+
+            <div id="current-donation">
+                <!-- Current Food request details will be shown here -->
+            </div>
+
+            <div class="empty-state">
+                <p class="donation-prompt">Do you have require food?</p>
+                <button class="create-donation-btn" id="createDonationBtn">
+                    <i class="fas fa-plus"></i> Create More Request
+                </button>
+            </div>
+
+            <div class="donation-history">
+                <div class="history-header">
+                    <h3>Food Recieved History</h3>
+                    <a href="#" class="view-all">View all</a>
+                </div>
+                <div class="history-item">
+                    <div class="history-image">
+                        <img src="food-placeholder.jpg" alt="Food">
+                    </div>
+                    <div class="history-details">
+                        <div class="history-id-date">
+                            <p class="history-id">ID: 324800</p>
+                            <p class="history-date">3 Days Ago</p>
+                        </div>
+                        <p class="history-description">Rice bowl with curry.</p>
+                        <div class="history-tags">
+                            <span class="tag">10 Plate</span>
+                            <span class="tag">Non-veg</span>
+                        </div>
+                        <div class="history-status">
+                            <span class="status-completed">Completed</span>
+                            <div class="status-actions">
+                                <button class="icon-btn"><i class="fas fa-share-alt"></i></button>
+                                <button class="icon-btn"><i class="fas fa-copy"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content hidden" id="requests-content">
+            <!-- Receiver requests will be loaded here -->
+            <div id="receiver-requests-container">
+                <!-- This will be dynamically populated with request data -->
+            </div>
+        </div>
+
+        <div class="section" id="ngos-section">
+            <div class="section-header">
+                <h2>NGOs Near You</h2>
+                <a href="#" class="see-more">See More</a>
+            </div>
+            <div class="ngo-grid">
+                <div class="ngo-card">
+                    <div class="ngo-image">
+                        <img src="ngo-placeholder.jpg" alt="NGO">
+                    </div>
+                    <div class="ngo-info">
+                        <p class="ngo-name">DONOR Name 1</p>
+                        <p class="ngo-distance">2.5km</p>
+                    </div>
+                </div>
+                <div class="ngo-card">
+                    <div class="ngo-image">
+                        <img src="ngo-placeholder2.jpg" alt="NGO">
+                    </div>
+                    <div class="ngo-info">
+                        <p class="ngo-name">DONOR Name 1</p>
+                        <p class="ngo-distance">2.5km</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <a href="index.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-search"></i>
+                <span>Search</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Donate</span>
+            </a>
+            <a href="profile.html" class="nav-item active">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>

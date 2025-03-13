@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Food request Post</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="page-header">
+            <button class="back-btn" id="backButton" href="profile.html"><i class="fas fa-arrow-left" href="profile.html"></i></button>
+            <h1>Create Food Request Post</h1>
+        </div>
+
+        <form id="donationForm">
+            <div class="form-group">
+                <label for="foodDescription">Food Description</label>
+                <input type="text" id="foodDescription" placeholder="What food do you want to donate?" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="foodQuantity">Quantity</label>
+                <input type="number" id="foodQuantity" placeholder="Number of plates/servings" required min="1">
+            </div>
+            
+            <div class="form-group">
+                <label>Food Type</label>
+                <div class="food-type-toggle">
+                    <button type="button" class="food-type-btn active" id="vegButton" data-type="veg">
+                        <i class="fas fa-leaf"></i> Veg
+                    </button>
+                    <button type="button" class="food-type-btn" id="nonVegButton" data-type="nonveg">
+                        <i class="fas fa-drumstick-bite"></i> Non Veg
+                    </button>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="expiryTime">Expiry Time</label>
+                <input type="datetime-local" id="expiryTime" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Add Photos</label>
+                <div class="photo-upload" id="photoUploadBtn">
+                    <div class="upload-placeholder">
+                        <i class="fas fa-camera"></i>
+                        <p>Add Photos</p>
+                    </div>
+                    <input type="file" id="photoInput" accept="image/*" multiple hidden>
+                </div>
+                <div class="photo-preview"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="pickupAddress">Pickup Address</label>
+                <textarea id="pickupAddress" placeholder="Enter the address where food can be picked up" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Or</label>
+                <button type="button" class="map-location-btn" id="useLocationBtn">
+                    <i class="fas fa-map-marker-alt"></i> Use Current Location
+                </button>
+                <input type="hidden" id="latitude">
+                <input type="hidden" id="longitude">
+            </div>
+            
+            <button type="submit" class="submit-btn">Post Request</button>
+        </form>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
