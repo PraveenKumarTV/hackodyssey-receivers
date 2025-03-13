@@ -99,11 +99,11 @@ margin-right:auto;
         <div class="donor-types">
             <div class="donor-type" id="restaurant">
                 <i class="fas fa-store-alt"></i>
-                <p>Restaurant</p>
+                <p>NGOs</p>
             </div>
             <div class="donor-type" id="bakery">
                 <i class="fas fa-bread-slice"></i>
-                <p>Bakery</p>
+                <p>Volunteers</p>
             </div>
             <div class="donor-type" id="individual">
                 <i class="fas fa-user"></i>
@@ -111,7 +111,7 @@ margin-right:auto;
             </div>
             <div class="donor-type" id="event">
                 <i class="fas fa-calendar"></i>
-                <p>Event</p>
+                <p>Self-pickup</p>
             </div>
         </div>
         
@@ -201,14 +201,14 @@ margin-right:auto;
             
             document.querySelectorAll(".donor-type").forEach(el => el.classList.remove("active1"));
 
-            typeOfDonor = "restaurant";
+            typeOfDonor = "NGOs";
             
             restaurant.classList.add("active1");
         });
         bakery.addEventListener("click",()=>{
             document.querySelectorAll(".donor-type").forEach(el => el.classList.remove("active1"));
 
-            typeOfDonor = "bakery";
+            typeOfDonor = "Volunteers";
             bakery.classList.add("active1");
         });
         individual.addEventListener("click",()=>{
@@ -220,7 +220,7 @@ margin-right:auto;
         event.addEventListener("click",()=>{
             document.querySelectorAll(".donor-type").forEach(el => el.classList.remove("active1"));
 
-            typeOfDonor = "event";
+            typeOfDonor = "Self-pickup";
             event.classList.add("active1");
         });
         
