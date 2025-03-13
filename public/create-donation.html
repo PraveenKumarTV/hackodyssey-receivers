@@ -73,6 +73,57 @@
         </form>
     </div>
 
-    <script src="app.js"></script>
+    <script>
+        const form=document.getElementById('donationForm');
+        let foodType="";
+        const vegbtn=document.getElementById('vegButton');
+        const nonvegbtn=document.getElementById('nonVegButton');
+        vegbtn.addEventListener("click",(e)=>{
+            foodType="veg";
+            vegbtn.classList.add('active');
+            nonvegbtn.classList.remove('active');
+        });
+        nonvegbtn.addEventListener("click",(e)=>{
+            foodType="nonveg";
+            nonvegbtn.classList.add('active');
+            vegbtn.classList.remove('active');
+        });
+        form.addEventListener("submit",(e)=>{
+            e.preventDefault();
+            const foodDescription=document.getElementById('foodDescription').value;
+            const foodQuantity=document.getElementById('foodQuantity').value;
+            const expiryTime=document.getElementById('expiryTime').value;
+            const pickupAddress=document.getElementById('pickupAddress').value;
+            //const latitude=document.getElementById('latitude').value;
+            //const longitude=document.getElementById('longitude').value;
+            //const photoInput=document.getElementById('photoInput').files;
+            if(!foodDescription || !foodQuantity || !expiryTime || !pickupAddress|| !foodType){
+                alert("All fields are required");
+                return;
+            }
+            const formData=new FormData();
+            formData.append('foodDescription',foodDescription);
+            formData.append('foodQuantity',foodQuantity);
+            formData.append('expiryTime',expiryTime);
+            formData.append('pickupAddress',pickupAddress);
+    
+            formData.append('foodType',foodType);
+            
+            fetch('https://hackodyssey-receivers.onrender.com/receiverPosts',{
+                method:'POST',
+                body:formData
+            }).then(response=>response.json())
+            .then(data=>{
+                if(data.success){
+                    alert("Receiver request posted successfully");
+                    window.location.href="profile.html";
+                }
+                else{
+                    alert("Failed to post donation request");
+                }
+            });
+        });
+
+    </script>
 </body>
 </html>
