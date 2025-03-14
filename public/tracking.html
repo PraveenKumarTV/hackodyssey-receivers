@@ -3,74 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Tracking</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="dashboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Live Order Tracking</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            margin: auto;
+        }
+        .tracking-box {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        .status {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0275d8;
+        }
+        .map-container {
+            width: 100%;
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .progress-bar {
+            width: 100%;
+            background: #ddd;
+            height: 10px;
+            border-radius: 5px;
+            position: relative;
+            margin-top: 10px;
+        }
+        .progress {
+            height: 100%;
+            width: 0%;
+            background: #0275d8;
+            border-radius: 5px;
+            transition: width 1s ease-in-out;
+        }
+        #distance-info {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .notification {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 1000;
+        }
+        .notification h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .notification p {
+            margin-bottom: 20px;
+        }
+        .notification button {
+            background: #0275d8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <div class="main-container">
-        <div class="page-header">
-            <button class="back-btn" id="backButton"><i class="fas fa-arrow-left"></i></button>
-            <h1>Live tracking</h1>
-        </div>
-
-        <div class="tracking-container">
-            <div class="tracking-status">
-                <p>Agent Assigned for Pickup</p>
+    <div class="container">
+        <h1>Live Order Tracking</h1>
+        <div class="tracking-box">
+            <p class="status" id="deliveryStatus">Finding the best route...</p>
+            <div class="progress-bar">
+                <div class="progress" id="progressBar"></div>
             </div>
-            
-            <div class="map-container">
-                <div id="map" class="map">
-                    <!-- Map will be loaded here with JavaScript -->
-                    <img src="map-placeholder.jpg" alt="Map" class="placeholder-map">
-                </div>
-            </div>
-            
-            <div class="agent-details">
-                <div class="agent-profile">
-                    <div class="agent-avatar">
-                        <img src="agent-placeholder.jpg" alt="Agent">
-                    </div>
-                    <div class="agent-info">
-                        <p class="agent-name">Aswin Kumar</p>
-                        <p class="agent-role">I am pickup volunteer</p>
-                    </div>
-                    <button class="expand-btn"><i class="fas fa-chevron-down"></i></button>
-                </div>
-                
-                <div class="order-details">
-                    <p>ID Details - 324800</p>
-                    <p>Contact - 9011234560</p>
-                </div>
-                
-                <div class="tracking-timeline">
-                    <div class="timeline-item completed">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <p class="timeline-title">Assigned</p>
-                            <p class="timeline-time">10:00PM</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item completed">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <p class="timeline-title">Pick Up</p>
-                            <p class="timeline-time">10:20PM</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <p class="timeline-title">Complete order</p>
-                            <p class="timeline-time">10:30PM</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <p id="distance-info">Distance: Calculating... | ETA: Calculating...</p>
+            <div id="map" class="map-container"></div>
         </div>
     </div>
-
-    <script src="app.js"></script>
+    <div class="notification" id="completionNotification">
+        <h1>Congrats!</h1>
+        <p>You have completed your delivery.</p>
+        <p class="text-gray-600">You have earned 100 points for your contribution!</p>
+        <button onclick="closeNotification()">Back to Home</button>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        const donorLocation = [9.9337, 78.1261];
+        const receiverLocation = [9.9072, 78.1153];
+        let map = L.map('map').setView(donorLocation, 14);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+        let donorMarker = L.marker(donorLocation).addTo(map).bindPopup("Donor (Jaihindpuram)").openPopup();
+        let receiverMarker = L.marker(receiverLocation).addTo(map).bindPopup("Receiver (Palanganatham)").openPopup();
+        let agentMarker = L.marker(donorLocation).addTo(map).bindPopup("Delivery Agent");
+        function getDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371;
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        }
+        let progress = 0;
+        let totalSteps = 2;
+        let updateInterval = 60000;
+        let stepLat = (receiverLocation[0] - donorLocation[0]) / totalSteps;
+        let stepLng = (receiverLocation[1] - donorLocation[1]) / totalSteps;
+        let currentStep = 0;
+        function updateTracking() {
+            if (currentStep < totalSteps) {
+                let newLat = donorLocation[0] + stepLat * currentStep;
+                let newLng = donorLocation[1] + stepLng * currentStep;
+                const newPosition = [newLat, newLng];
+                agentMarker.setLatLng(newPosition);
+                map.setView(newPosition, 14);
+                let remainingDistance = getDistance(newLat, newLng, receiverLocation[0], receiverLocation[1]);
+                let eta = Math.ceil((remainingDistance / 30) * 60);
+                document.getElementById("distance-info").innerText = 
+                    `Distance: ${remainingDistance.toFixed(2)} km | ETA: ${eta} min`;
+                progress = ((currentStep + 1) / totalSteps) * 100;
+                document.getElementById("progressBar").style.width = `${progress}%`;
+                let statuses = ["Out for delivery...", "Halfway there!", "Almost Arriving!", "Order Delivered!"];
+                document.getElementById("deliveryStatus").innerText = 
+                    progress >= 100 ? statuses[3] : statuses[Math.floor(progress / 33)];
+                if (progress >= 100) {
+                    showNotification();
+                }
+                currentStep++;
+                setTimeout(updateTracking, updateInterval);
+            }
+        }
+        function showNotification() {
+            document.getElementById("completionNotification").style.display = 'block';
+        }
+        function closeNotification() {
+            window.location.href = 'profile.html';
+        }
+        setTimeout(updateTracking, 2000);
+    </script>
 </body>
 </html>
