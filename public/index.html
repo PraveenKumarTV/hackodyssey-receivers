@@ -306,7 +306,7 @@ margin-right:auto;
 
 .then(response => response.json())
 .then(data => console.log("Post Created:", data))
-.then(data=>localStorage.setItem("User",JSON.stringify(obj))
+.then(data=>localStorage.setItem("User",JSON.stringify(obj)))
 .catch(error => console.error("Error:", error));
             formElement.reset();
         }
