@@ -3,152 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reciever Profile</title>
+    <title>Reciever Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="main-container">
-        <div class="profile-header">
-            <div class="profile-info">
-                <div class="profile-greeting">
-                    <p>Hi Praveen</p>
-                </div>
-                <div class="profile-role">
-                    <h2>You are a <span class="role-text">RECIEVER</span> <i class="fas fa-chevron-down"></i></h2>
-                </div>
+        <div class="status-bar">
+            <div class="status-text">
+                <span class="status-completed">Completed</span>
             </div>
-            <div class="notification">
-                <i class="fas fa-bell notification-icon"></i>
+            <div class="status-actions">
+                <button class="icon-btn"><i class="fas fa-share-alt"></i></button>
+                <button class="icon-btn"><i class="far fa-copy"></i></button>
             </div>
         </div>
 
-        <div class="donor-stats">
-            <p class="donor-level">Super Reciever</p>
-            <div class="donor-metrics">
-                <div class="metric">
-                    <p class="metric-label">No of Foods(Recieved)</p>
-                    <p class="metric-value">500</p>
-                </div>
-                <div class="metric">
-                    <p class="metric-label">Feedback received</p>
-                    <p class="metric-value">500</p>
-                </div>
-                <div class="metric">
-                    <p class="metric-label">Points earned</p>
-                    <p class="metric-value">1000</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="donor-tabs">
-            <div class="tab active" data-tab="mypost">My Post <span class="tab-count">1</span></div>
-            <div class="tab" data-tab="requests">Donor Requests <span class="tab-count" id="requestCount">0</span></div>
-        </div>
-
-        <div class="tab-content" id="mypost-content">
-            <div id="donation-status">
-                <!-- This will be dynamically filled based on status -->
-            </div>
-
-            <div id="current-donation">
-                <!-- Current Food request details will be shown here -->
-            </div>
-
-            <div class="empty-state">
-                <p class="donation-prompt">Do you have require food?</p>
-                <button class="create-donation-btn" id="createDonationBtn">
-                    <i class="fas fa-plus"></i> Create More Request
-                </button>
-            </div>
-
-            <div class="donation-history">
-                <div class="history-header">
-                    <h3>Food Recieved History</h3>
-                    <a href="#" class="view-all">View all</a>
-                </div>
-                <div class="history-item">
-                    <div class="history-image">
-                        <img src="food-placeholder.jpg" alt="Food">
-                    </div>
-                    <div class="history-details">
-                        <div class="history-id-date">
-                            <p class="history-id">ID: 324800</p>
-                            <p class="history-date">3 Days Ago</p>
-                        </div>
-                        <p class="history-description">Rice bowl with curry.</p>
-                        <div class="history-tags">
-                            <span class="tag">10 Plate</span>
-                            <span class="tag">Non-veg</span>
-                        </div>
-                        <div class="history-status">
-                            <span class="status-completed">Completed</span>
-                            <div class="status-actions">
-                                <button class="icon-btn"><i class="fas fa-share-alt"></i></button>
-                                <button class="icon-btn"><i class="fas fa-copy"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="tab-content hidden" id="requests-content">
-            <!-- Receiver requests will be loaded here -->
-            <div id="receiver-requests-container">
-                <!-- This will be dynamically populated with request data -->
-            </div>
-        </div>
-
-        <div class="section" id="ngos-section">
+        <section class="section">
             <div class="section-header">
-                <h2>NGOs Near You</h2>
+                <h2>Foods spots Near You</h2>
                 <a href="#" class="see-more">See More</a>
             </div>
             <div class="ngo-grid">
                 <div class="ngo-card">
                     <div class="ngo-image">
-                        <img src="ngo-placeholder.jpg" alt="NGO">
+                        <img src="donor1.jpg" alt="NGO Image">
                     </div>
                     <div class="ngo-info">
-                        <p class="ngo-name">NGO Name 1</p>
+                        <p class="ngo-name">DONOR Name 1</p>
                         <p class="ngo-distance">2.5km</p>
                     </div>
                 </div>
                 <div class="ngo-card">
                     <div class="ngo-image">
-                        <img src="ngo-placeholder2.jpg" alt="NGO">
+                        <img src="donor2.jpg" alt="NGO Image">
                     </div>
                     <div class="ngo-info">
-                        <p class="ngo-name">NGO Name 2</p>
+                        <p class="ngo-name">DONOR Name 2</p>
+                        <p class="ngo-distance">2.5km</p>
+                    </div>
+                </div>
+                <div class="ngo-card">
+                    <div class="ngo-image">
+                        <img src="donor3.jpg" alt="NGO Image">
+                    </div>
+                    <div class="ngo-info">
+                        <p class="ngo-name">DONOR Name 3</p>
+                        <p class="ngo-distance">2.5km</p>
+                    </div>
+                </div>
+                <div class="ngo-card">
+                    <div class="ngo-image">
+                        <img src="donor4.jpg" alt="NGO Image">
+                    </div>
+                    <div class="ngo-info">
+                        <p class="ngo-name">DONOR Name 4</p>
                         <p class="ngo-distance">2.5km</p>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="bottom-nav">
-            <a href="home.html" class="nav-item">
+        <section class="section">
+            <div class="section-header">
+                <h2>Community</h2>
+                <a href="#" class="see-more">View Feed</a>
+            </div>
+            <div class="community-grid">
+                <div class="community-card">
+                    <div class="community-image">
+                        <img src="community1.jpg" alt="Community Image">
+                    </div>
+                    <div class="community-info">
+                        <p class="community-description">PEOPLE WHO ARE READY TO DONATE FOOD</p>
+                        <a href="#" class="know-more">Know More</a>
+                    </div>
+                </div>
+                <div class="community-card">
+                    <div class="community-image">
+                        <img src="community2.jpg" alt="Community Image">
+                    </div>
+                    <div class="community-info">
+                        <p class="community-description">PEOPLE WHO ARE READY TO DONATE FOOD</p>
+                        <a href="#" class="know-more">Know More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <h2>FAQs</h2>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <p>WHO WILL DONATE FOOD?</p>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Whether volunteers will deliver the food to our location at the scheduled time.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <p>Can we post multiple food requests?</p>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can post multiple food requests. Simply create a food request post when you require food.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="home.html" class="nav-item active">
                 <i class="fas fa-home"></i>
                 <span>Home</span>
+            </a>
+            <a href="message.html" class="nav-item">
+                <i class="far fa-comment-alt"></i>
+                <span>Message</span>
             </a>
             <a href="search.html" class="nav-item">
                 <i class="fas fa-search"></i>
                 <span>Search</span>
             </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-heart"></i>
-                <span>Donate</span>
-            </a>
-            <a href="profile.html" class="nav-item active">
-                <i class="fas fa-user"></i>
+            <a href="profile.html" class="nav-item">
+                <i class="far fa-user"></i>
                 <span>Profile</span>
             </a>
-        </div>
+        </nav>
     </div>
 
     <script src="dashboard.js"></script>
-    <script src="profile.js"></script>
 </body>
 </html>
