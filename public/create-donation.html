@@ -127,7 +127,8 @@
         .then(response=>response.json())
         .then(data=>console.log("POST created"))
         .then(data=>window.location.href = "profile.html")
-        .catch(error => console.error("Error:", error))
+        .then(alert("Request successfully created"))
+        .catch(error => alert("Error:, error"))
         form.reset();
     })
 
